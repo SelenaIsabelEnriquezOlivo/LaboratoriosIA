@@ -1,10 +1,10 @@
 #La funcion nos ayudará a conocer cuales son las zonas que se deben limpiar
 def identificarZonasAlimpiar(estado):
-    arrayCuartosSucios=[]
+    arrayParabriSucios=[]
     for k, v in estado.items():
         if(v[0]=='1'):
-            arrayCuartosSucios.append(v[1])
-    return arrayCuartosSucios
+            arrayParabriSucios.append(v[1])
+    return arrayParabriSucios
 #En el caso de que la posicion no sea la menor, la aspiradora se redirigira a la posicion menor
 def redirigirAlprimero(costo, posicion, menor):
     if(posicion==menor):
@@ -52,17 +52,18 @@ while(True):
     # verificacion para poder ingresar otra zona
     verificacion = (input("Si desea ingresar otra zona escriba Y: ")).upper()
     if(verificacion=='Y'):
-        localization = input("Ingresa una zona existente: ")
+        localizacion = input("Ingresa una zona existente: ")
         estadoLimpieza = input("Ingrese el estado de esa zona: ")
-        estado[str(localization)] = [estadoLimpieza,valor]
+        estado[str(localizacion)] = [estadoLimpieza,valor]
         valor+=1
     else:
         break
 position = input("Digite la zona en que se encuentra la aspiradora: ")
-
+# Identificación de las zonas para limpiar frente al estado
 ventanasSucias=identificarZonasAlimpiar(estado)
+# movimiento a la izquierda
 costo, position=redirigirAlprimero(int(costo), int(position), int(ventanasSucias[0]))
+# asignación del costo en base a la limpieza del vidrio
 costo=limpiezaVidrio(ventanasSucias, position, estado, costo)
 
 print('El costo seria '+str(costo))
-
